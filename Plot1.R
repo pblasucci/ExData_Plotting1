@@ -1,15 +1,15 @@
-EPC <- read.table('household_power_consumption_2007_FEB_01_02.txt'
-                  ,header = TRUE
-                  ,sep = ';'
-                  ,na.strings = '?'
-                  ,stringsAsFactors = FALSE)
-
-EPC$Date <- as.Date(EPC$Date, format = "%d/%m/%Y")
-EPC$Time <- strptime(EPC$Time, format = "%H:%M:%S")
+# ---------
+# Plot1.R ... generates a histogram of the Global Active Power in the EPC data set
+#         ... renders histogram to disk as a PNG file named 'Plot1.png'
+# ---------
+source('DataUtils.R')
+EPC <- loadPlotData('household_power_consumption_2007_FEB_01_02.txt')
 
 png(filename = "Plot1.png")
-hist(EPC$Global_active_power
-     ,col = "red"
-     ,main = "Gloabl Active Power"
-     ,xlab = "Global Active Power (kilowatts)")
+with(EPC, {
+  hist(Global_active_power
+        ,col  = "red"
+        ,main = "Gloabl Active Power"
+        ,xlab = "Global Active Power (kilowatts)")  
+})
 dev.off()
